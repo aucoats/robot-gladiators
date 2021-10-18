@@ -27,6 +27,8 @@ var enemyAttack = 12;
 // }
 
 var fight = function(enemyName) {
+
+    
     // repeat and execute as long as the enemy bot is alive
     while(enemyHealth > 0 && playerHealth > 0) {
     
@@ -86,7 +88,24 @@ var fight = function(enemyName) {
 };
 
 for(var i = 0; i < enemyNames.length; i++) {
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
-    fight(pickedEnemyName);
+    if (playerHealth > 0) {
+        // let player know what round, arrays start at 0 so i + 1
+        window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ));
+
+        // pick new enemy to fight based on index of enemyNames array
+        var pickedEnemyName = enemyNames[i];
+
+        // reset enemyHealth before starting new fight
+        enemyHealth = 50;
+
+        // use debugger to pause and check what's going on 
+        // debugger;
+
+        // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+        fight(pickedEnemyName);
+    }
+    else {
+        window.alert("You have lost your robot in battle. Game over.");
+        break;
+    }
 }
