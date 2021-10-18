@@ -3,14 +3,29 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-// logging multiple values
-console.log(playerName, playerAttack, playerHealth);
+// Game States
+//  "WIN" - Player robot has defeated all enemies
+//          *Fight all enemy robots
 
-var enemyName = "Roborto";
+// logging multiple values
+// console.log(playerName, playerAttack, playerHealth);
+
+var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
+// console.log(enemyNames);
+// console.log(enemyNames[0]);
+// console.log(enemyNames[1]);
+// console.log(enemyNames[2]);
+// console.log(enemyNames.length);
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-var fight = function() {
+// for(var i = 0; i < enemyNames.length; i++) {
+//     console.log(enemyNames[i]);
+//     console.log(i);
+//     console.log(enemyNames[i] + " is at " + i + " index");
+// }
+
+var fight = function(enemyName) {
     // Alert
     window.alert("Welcome to Robot Gladiators!");
 
@@ -65,4 +80,6 @@ var fight = function() {
     }
 };
 
-fight();
+for(var i = 0; i < enemyNames.length; i++) {
+    fight(enemyNames[i]);
+}
