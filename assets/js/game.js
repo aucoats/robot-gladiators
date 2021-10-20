@@ -128,7 +128,7 @@ var fight = function(enemy) {
             } 
         }
         //switch turn order for next round
-        isPlayerturn = !isPlayerTurn;
+        isPlayerTurn = !isPlayerTurn;
     }
 };
 
@@ -235,12 +235,32 @@ var startGame = function() {
 
 // function to end game
 var endGame = function() {
-    if (playerInfo.health > 0) {
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("The game has now ended. Let's see how you did!");
+
+    // check localStorage for high score, if it's not there, use 0
+    var highScore = localStorage.getItem("highscore");
+    // if (highScore === null) {
+    //     highScore = 0;
+    // } CAN ALSO BE WRITTEN LIKE
+    highScore = highScore || 0;
+
+    // if player has more money than high score, player has new high score
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+
+        alert(playerInfo.name + " now has the high score of " + highScore + "!");
+    } else {
+        alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
     }
-    else {
-        window.alert("You've lost your robot in battle.");
-    }
+    
+    
+    // if (playerInfo.health > 0) {
+    //     window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+    // }
+    // else {
+    //     window.alert("You've lost your robot in battle.");
+    // }
     
     var playAgainConfirm = window.confirm("Would you like to play again?");
 
