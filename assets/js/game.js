@@ -67,16 +67,21 @@ var fightOrSkip = function() {
 }
 
 var fight = function(enemy) {
-    
+    // keeps track of who goes first
+    var isPlayerTurn = true;
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
+
     // repeat and execute as long as the enemy bot is alive
     while(enemy.health > 0 && playerInfo.health > 0) {
-    
-        // Alert
-        // window.alert("Welcome to Robot Gladiators!");
-        if (fightOrSkip()) {
+        
+        if (isPlayerTurn) {
+            
+            if (fightOrSkip()) {
             // if true, leave fight by breaking loop
             break;
-        }; 
+            }
 
             // remove enemy hp by subtracting playerInfo.attack
             // generate random damage value based on player's attack power
@@ -99,6 +104,8 @@ var fight = function(enemy) {
             } else {
                 window.alert(enemy.name + " still has " + enemy.health + " health left.");
             }
+            // player gets attacked first
+        } else {
 
             // remove player hp by subtracting enemy.attack
             // random damage based on emnemy attack
@@ -119,6 +126,9 @@ var fight = function(enemy) {
             } else { 
                 window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
             } 
+        }
+        //switch turn order for next round
+        isPlayerturn = !isPlayerTurn;
     }
 };
 
