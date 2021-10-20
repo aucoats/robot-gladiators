@@ -31,19 +31,25 @@ var randomNumber = function(min, max) {
     return value;
 }
 
-
-
-var fight = function(enemy) {
-    
-    // repeat and execute as long as the enemy bot is alive
-    while(enemy.health > 0 && playerInfo.health > 0) {
-    
-        // Alert
-        // window.alert("Welcome to Robot Gladiators!");
-
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+var fightOrSkip = function() {
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         
-        if (promptFight === "skip" || promptFight === "SKIP") {
+        // conditional recursive function call
+        // if (promptFight === "" || promptFight === null) {
+        //     window.alert("You need to provide a valid answer! Please try again.");
+        //     return fightOrSkip();
+        // }
+
+        // falsy value example
+        // if the 'promptFight' is NOT a valid value, then execute the following statements
+        promptFight = promptFight.toLowerCase();
+
+        if (!promptFight) {
+            window.alert("You need to provide a valid answer! Please try again.");
+            return fightOrSkip();
+        }
+
+        if (promptFight === "skip") {
             // confirm skip
             var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -52,10 +58,26 @@ var fight = function(enemy) {
                 window.alert(playerInfo.name + " has chosen to skip the fight! Goodbye!");
                 // playerInfo.money subtract
                 playerInfo.money = Math.max(0, playerInfo.money - 10);
-                console.log("playerInfo.money", playerInfo.money);
-                break;
+                
+                // return true if player wants to leave
+                return true;
             }
         }
+        return false;
+}
+
+var fight = function(enemy) {
+    
+    // repeat and execute as long as the enemy bot is alive
+    while(enemy.health > 0 && playerInfo.health > 0) {
+    
+        // Alert
+        // window.alert("Welcome to Robot Gladiators!");
+        if (fightOrSkip()) {
+            // if true, leave fight by breaking loop
+            break;
+        }; 
+
             // remove enemy hp by subtracting playerInfo.attack
             // generate random damage value based on player's attack power
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
